@@ -105,6 +105,7 @@ public class MainController {
         ContactList list = contactListsBox.getValue();
         list.remove(contact);
         contactsListView.getItems().remove(contact);
+        contactDetailsController.clearDisplay();
     }
 
     @FXML

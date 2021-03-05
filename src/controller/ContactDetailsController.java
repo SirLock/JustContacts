@@ -27,6 +27,15 @@ public class ContactDetailsController {
         fillContactInfoFields();
     }
 
+    public void clearDisplay(){
+        displayedContact = null;
+        givenNameInput.setText("");
+        surnameInput.setText("");
+        phoneInput.setText("");
+        addressInput.setText("");
+        contactInfoLocked = true;
+    }
+
     private void fillContactInfoFields() {
         givenNameInput.setText(displayedContact.getGivenName());
         surnameInput.setText(displayedContact.getSurname());

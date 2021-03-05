@@ -13,8 +13,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import model.Contact;
 import model.ContactList;
@@ -45,6 +47,11 @@ public class MainController {
     private AddressBookService addressBookService;
     private boolean contactInfoIsLocked = true;
     private Stage primaryStage;
+
+    @FXML
+    private VBox contactDetails;
+    @FXML
+    private ContactDetailsController contactDetailsController;
 
     public MainController() {
     }
@@ -115,7 +122,7 @@ public class MainController {
     @FXML
     public void contactSelectedAction(MouseEvent mouseEvent) {
         Contact contact = contactsListView.getSelectionModel().getSelectedItem();
-        fillContactInfoFields(contact);
+        contactDetailsController.fillContactInfoFields(contact);
     }
 
     public void toggleEdit(ActionEvent actionEvent) {
@@ -142,12 +149,7 @@ public class MainController {
         contact.setAddress(addressInput.getText());
     }
 
-    private void fillContactInfoFields(Contact contact) {
-        givenNameInput.setText(contact.getGivenName());
-        surnameInput.setText(contact.getSurname());
-        phoneInput.setText(contact.getPhone());
-        addressInput.setText(contact.getAddress());
-    }
+
 
     private void enableContactDetailsInputs() {
         givenNameInput.setDisable(false);

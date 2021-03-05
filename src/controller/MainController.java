@@ -58,19 +58,7 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        // TEST DATA
-//        Contact c1 = new Contact("contact1", "c1");
-//        Contact c2 = new Contact("contact2", "c2");
-//        Contact c3 = new Contact("contact3", "c3");
-//        List<Contact> collection1 = List.of(c1, c2);
-//        List<Contact> collection2 = List.of(c2, c3);
-//        ContactList l1 = new ContactList("liste 1");
-//        l1.addAll(collection1);
-//        ContactList l2 = new ContactList("liste 2");
-//        l2.addAll(collection2);
-
         addressBookService = AddressBookService.getInstance();
-//        addressBookService.getContactLists().addAll(l1, l2); // TODO REMOVE
         contactListsBox.setItems(addressBookService.getContactLists());
     }
 
@@ -122,47 +110,7 @@ public class MainController {
     @FXML
     public void contactSelectedAction(MouseEvent mouseEvent) {
         Contact contact = contactsListView.getSelectionModel().getSelectedItem();
-        contactDetailsController.fillContactInfoFields(contact);
-    }
-
-    public void toggleEdit(ActionEvent actionEvent) {
-        Contact selectedContact = contactsListView.getSelectionModel().getSelectedItem();
-        if (noContactSelected())
-            return;
-        if (contactInfoIsLocked) {
-            enableContactDetailsInputs();
-            editSaveButton.setText("save");
-        } else {
-            disableContactDetailsInputs();
-            updateContactByContactDetails(selectedContact);
-            editSaveButton.setText("edit");
-        }
-        contactInfoIsLocked = !contactInfoIsLocked;
-    }
-
-    private void updateContactByContactDetails(Contact contact) {
-        if (noContactSelected())
-            return;
-        contact.setGivenName(givenNameInput.getText());
-        contact.setSurname(surnameInput.getText());
-        contact.setPhone(phoneInput.getText());
-        contact.setAddress(addressInput.getText());
-    }
-
-
-
-    private void enableContactDetailsInputs() {
-        givenNameInput.setDisable(false);
-        surnameInput.setDisable(false);
-        phoneInput.setDisable(false);
-        addressInput.setDisable(false);
-    }
-
-    private void disableContactDetailsInputs() {
-        givenNameInput.setDisable(true);
-        surnameInput.setDisable(true);
-        phoneInput.setDisable(true);
-        addressInput.setDisable(true);
+        contactDetailsController.displayContact(contact);
     }
 
     private boolean noContactSelected() {
